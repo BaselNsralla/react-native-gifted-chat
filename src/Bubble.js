@@ -118,10 +118,17 @@ export default class Bubble extends React.Component {
     }
   }
 
+  bubblesCustomStyle(side) {
+      if (side === 'right') {
+        return this.props.extraRightBubbleStyle
+      }else {
+         return this.props.extraLeftBubbleStyle
+      }
+  }
   render() {
     return (
       <View style={[styles[this.props.position].container, this.props.containerStyle[this.props.position]]}>
-        <View style={[styles[this.props.position].wrapper, this.props.wrapperStyle[this.props.position], this.handleBubbleToNext(), this.handleBubbleToPrevious()]}>
+        <View style={[styles[this.props.position].wrapper, this.props.wrapperStyle[this.props.position],this.bubblesCustomStyle(this.props.position) ,this.handleBubbleToNext(), this.handleBubbleToPrevious()]}>
           <TouchableWithoutFeedback
             onLongPress={this.onLongPress}
             accessibilityTraits="text"
@@ -170,7 +177,7 @@ const styles = {
     },
     wrapper: {
       borderRadius: 15,
-      backgroundColor: '#0084ff',
+
       marginLeft: 60,
       minHeight: 20,
       justifyContent: 'flex-end',
@@ -214,6 +221,8 @@ Bubble.defaultProps = {
     createdAt: null,
     image: null,
   },
+  extraRightBubbleStyle: {},
+  extraLeftBubbleStyle: {},
   nextMessage: {},
   previousMessage: {},
   containerStyle: {},
